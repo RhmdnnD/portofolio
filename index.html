@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Rahmad Ananda | Web Developer</title>
+    <meta name="description" content="Portofolio pribadi Rahmad Ananda, seorang Web Developer dan UI/UX Designer yang bersemangat dalam menciptakan solusi digital yang inovatif.">
+    <meta name="keywords" content="portofolio, web developer, ui/ux designer, rahmad ananda, html, css, javascript, tanjung pinang">
+    
+    <link rel="icon" type="image/png" href="img/favicon.png"> 
+    
+    <meta property="og:title" content="Portofolio | Rahmad Ananda">
+    <meta property="og:description" content="Jelajahi proyek, keahlian, dan pengalaman saya dalam pengembangan web dan desain.">
+    <meta property="og:image" content="https://placehold.co/1200x630/1a1a1a/B5A642?text=RA">
+    <meta property="og:url" content="https://nama-domain-anda.com">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <a href="#home" class="nav-logo">Rahmad Ananda</a>
+        <nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Buka Menu" aria-expanded="false">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#artikel">Article</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li id="admin-link" style="display: none;"><a href="admin.html">Admin</a></li>
+                <li id="logout-link" style="display: none;"><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content-wrapper">
+                <img id="dynamic-profile-pic" src="img/profil.png" alt="Foto Profil Anda" class="profile-pic">
+                <div class="hero-text-content">
+                    <h1 id="dynamic-hero-title">Halo, saya<br><span id="dynamic-hero-name">Rahmad Ananda</span></h1>
+                    <p id="dynamic-hero-subtitle">Web Developer | UI/UX Designer</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+            <div class="animated-shape">
+                <img src="img/bulan.png" alt="animasi-bulan">
+            </div>
+        </section>
+
+        <section id="about">
+
+            <section class="section-content">
+                <h2>About Me</h2>
+                <p id="dynamic-about-me"></p>
+            </section>
+
+            <section id="skills" class="section-content">
+                <h2>Skills</h2>
+                <div id="dynamic-skills-grid" class="skills-grid-circular"></div>
+            </section>
+
+            <section id="education" class="section-content">
+                <h2>Education</h2>
+                <div id="dynamic-education-timeline"></div>
+            </section>
+            
+            <section id="experience" class="section-content">
+                <h2>Experience</h2>
+                <div id="dynamic-experience-timeline"></div>
+            </section>
+
+            <section id="projects" class="section-content">
+                <h2>My Projects</h2>
+                <div id="dynamic-projects-grid" class="projects-grid"></div>
+            </section>
+            
+            <section id="organization" class="section-content">
+                <h2>Organization</h2>
+                <div id="dynamic-organization-timeline"></div>
+            </section>
+
+            <section id="activity" class="section-content">
+                <h2>Activity</h2>
+                <div id="dynamic-activity-timeline"></div>
+            </section>
+
+        </section> 
+        
+        <section id="artikel" class="section-content">
+            <h2>Latest Articles</h2>
+            <div id="dynamic-articles-grid" class="articles-grid"></div>
+        </section>
+
+        <section id="contact" class="section-content">
+            <h2>Contact</h2>
+            <div class="contact-container">
+                <div class="social-icons">
+                    <a id="dynamic-email" href="#" class="social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a id="dynamic-linkedin" href="#" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a id="dynamic-github" href="#" target="_blank" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a id="dynamic-whatsapp" href="#" target="_blank" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <div class="value-card">
+                    <h3 id="dynamic-value-title">Nilai per Bulan</h3>
+                    <p id="dynamic-value-amount">Rp 12.000.000,-</p>
+                    <small id="dynamic-value-subtext">*Rata-rata harga layanan/bisnis bulanan</small>
+                </div>
+                <p id="dynamic-discussion-prompt" class="discussion-prompt">Ingin berdiskusi lebih lanjut? Silakan kirim pesan menggunakan formulir di bawah ini.</p>
+                <button id="open-modal-btn" class="btn send-message-btn">Kirim Pesan</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Rahmad Ananda. All rights reserved.</p>
+    </footer>
+
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Kirim Pesan</h2>
+            <form id="contact-form" action="https://formspree.io/f/xldnapyj" method="POST">
+                <div class="form-group"><label for="name">Nama</label><input type="text" id="name" name="name" required></div>
+                <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+                <div class="form-group"><label for="message">Pesan</label><textarea id="message" name="message" rows="4" required></textarea></div>
+                <button type="submit" class="btn">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

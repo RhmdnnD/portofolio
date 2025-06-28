@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman Tidak Ditemukan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .error-page-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .error-page-container h1 {
+            font-size: 6rem;
+            margin: 0;
+            color: var(--accent-color);
+        }
+        .error-page-container p {
+            font-size: 1.5rem;
+            margin: 10px 0 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="error-page-container">
+        <h1>404</h1>
+        <p>Maaf, halaman yang Anda cari tidak ada.</p>
+        <a href="index.html" class="btn">Kembali ke Halaman Utama</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                "particles": { "number": { "value": 60 }, "color": { "value": "#ffffff" }, "size": { "value": 3 }, "line_linked": { "color": "#888" }, "move": { "speed": 1 } },
+                "interactivity": { "events": { "onhover": { "mode": "repulse" } } }
+            });
+        }
+    </script>
+</body>
+</html>

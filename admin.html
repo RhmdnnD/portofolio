@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+    <div class="admin-dashboard">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="admin-sidebar">
+            <h2>Dashboard</h2>
+            <nav class="admin-nav">
+                <a href="#home-section" class="admin-nav-item active"><i class="fas fa-home"></i> Home</a>
+                <a href="#about-section" class="admin-nav-item"><i class="fas fa-user"></i> Tentang Saya</a>
+                <a href="#skills-section" class="admin-nav-item"><i class="fas fa-cogs"></i> Skills</a>
+                <a href="#education-section" class="admin-nav-item"><i class="fas fa-graduation-cap"></i> Edukasi</a>
+                <a href="#experience-section" class="admin-nav-item"><i class="fas fa-briefcase"></i> Pengalaman</a>
+                <a href="#projects-section" class="admin-nav-item"><i class="fas fa-project-diagram"></i> Proyek</a>
+                <a href="#organization-section" class="admin-nav-item"><i class="fas fa-sitemap"></i> Organisasi</a>
+                <a href="#activity-section" class="admin-nav-item"><i class="fas fa-tasks"></i> Aktivitas</a>
+                <a href="#articles-section" class="admin-nav-item"><i class="fas fa-newspaper"></i> Artikel</a>
+                <a href="#contact-section" class="admin-nav-item"><i class="fas fa-address-book"></i> Kontak</a>
+                <a href="index.html" class="admin-nav-item back-link"><i class="fas fa-arrow-left"></i> Kembali ke Portofolio</a>
+            </nav>
+        </aside>
+
+        <div class="admin-content-area">
+            <!-- Header Admin (BARU) -->
+            <header class="admin-header">
+                <button class="menu-toggle admin-menu-toggle" id="admin-menu-toggle" aria-label="Buka Menu">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </button>
+                <h2 class="admin-header-title">Home</h2>
+            </header>
+
+            <!-- Konten Utama -->
+            <main class="admin-main-content">
+                <section id="home-section" class="admin-panel active">
+                    <h3>Edit Halaman Utama (Home)</h3>
+                    <form id="home-form" class="admin-form">
+                        <div class="form-group">
+                            <label for="hero-title">Teks Sapaan (cth: Halo, saya)</label>
+                            <input type="text" id="hero-title" placeholder="Teks sapaan di atas nama">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-name">Nama Anda</label>
+                            <input type="text" id="hero-name" placeholder="Nama yang akan ditampilkan">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-subtitle">Sub-judul (cth: Web Developer)</label>
+                            <input type="text" id="hero-subtitle" placeholder="Sub-judul di bawah nama">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-picture-upload">Ganti Foto Profil</label>
+                            <input type="file" id="profile-picture-upload" accept="image/*">
+                            <div class="image-preview-container">
+                                <img id="profile-preview" src="img/profil.png" alt="Pratinjau Foto Profil" class="image-preview">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Simpan Perubahan Home</button>
+                    </form>
+                </section>
+
+                <section id="about-section" class="admin-panel">
+                    <h3>Edit "About Me"</h3>
+                    <form id="about-form" class="admin-form">
+                        <div class="form-group">
+                            <label for="about-text">Deskripsi Tentang Saya</label>
+                            <textarea id="about-text" rows="6" placeholder="Tulis deskripsi tentang Anda..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Simpan Perubahan</button>
+                    </form>
+                </section>
+
+                <section id="skills-section" class="admin-panel">
+                    <h3>Manajemen Skills</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Skill</h4>
+                            <form id="skill-form" class="admin-form">
+                                <input type="hidden" id="skill-id">
+                                <div class="form-group"><label for="skill-name">Nama Skill</label><input type="text" id="skill-name" placeholder="cth: HTML" required></div>
+                                <div class="form-group"><label for="skill-progress">Persentase</label><input type="number" id="skill-progress" placeholder="cth: 90" min="0" max="100" required></div>
+                                <div class="form-group"><label for="skill-color">Warna Ikon (Kode Hex)</label><input type="text" id="skill-color" placeholder="cth: #E44D26" required></div>
+                                <div class="form-group">
+                                    <label for="skill-icon">Kelas Ikon Font Awesome</label>
+                                    <input type="text" id="skill-icon" placeholder="cth: fa-brands fa-html5" required>
+                                    <div class="form-helper"><a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">Cari ikon di sini</a>. Salin kelasnya.</div>
+                                </div>
+                                <button type="submit" class="btn">Simpan Skill</button>
+                                <button type="button" id="clear-skill-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Skill</h4><ul id="skill-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+
+                <section id="education-section" class="admin-panel">
+                    <h3>Manajemen Edukasi</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Edukasi</h4>
+                            <form id="education-form" class="admin-form">
+                                <input type="hidden" id="education-id">
+                                <div class="form-group"><label for="education-title">Nama Institusi</label><input type="text" id="education-title" placeholder="cth: Universitas Maritim Raja Ali Haji" required></div>
+                                <div class="form-group"><label for="education-subtitle">Jurusan / Tingkat</label><input type="text" id="education-subtitle" placeholder="cth: S1 - Teknik Informatika" required></div>
+                                <div class="form-group"><label for="education-period">Periode</label><input type="text" id="education-period" placeholder="cth: 2022 - 2026" required></div>
+                                <button type="submit" class="btn">Simpan Edukasi</button>
+                                <button type="button" id="clear-education-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Edukasi</h4><ul id="education-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+
+                <section id="experience-section" class="admin-panel">
+                    <h3>Manajemen Pengalaman</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Pengalaman</h4>
+                            <form id="experience-form" class="admin-form">
+                                <input type="hidden" id="experience-id">
+                                <div class="form-group"><label for="experience-title">Nama Perusahaan/Organisasi</label><input type="text" id="experience-title" required></div>
+                                <div class="form-group"><label for="experience-subtitle">Posisi</label><input type="text" id="experience-subtitle" required></div>
+                                <div class="form-group"><label for="experience-period">Periode</label><input type="text" id="experience-period" required></div>
+                                <div class="form-group"><label for="experience-description">Deskripsi/Poin Tanggung Jawab</label><textarea id="experience-description" rows="4" placeholder="Pisahkan setiap poin dengan baris baru"></textarea></div>
+                                <button type="submit" class="btn">Simpan Pengalaman</button>
+                                <button type="button" id="clear-experience-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Pengalaman</h4><ul id="experience-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+                
+                <section id="projects-section" class="admin-panel">
+                    <h3>Manajemen Proyek</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Proyek</h4>
+                            <form id="project-form" class="admin-form">
+                                <input type="hidden" id="project-id"><input type="hidden" id="project-image-base64">
+                                <div class="form-group"><label for="project-title">Nama Proyek</label><input type="text" id="project-title" placeholder="Nama Proyek" required></div>
+                                <div class="form-group"><label for="project-description">Deskripsi Proyek</label><textarea id="project-description" rows="4" placeholder="Deskripsi Proyek" required></textarea></div>
+                                <div class="form-group">
+                                    <label for="project-image-upload">Upload Gambar Proyek</label><input type="file" id="project-image-upload" accept="image/*">
+                                    <div class="image-preview-container"><img id="project-preview" src="https://placehold.co/600x400/282828/E0E0E0?text=Pratinjau" alt="Pratinjau Gambar Proyek" class="image-preview rectangular"></div>
+                                </div>
+                                <div class="form-group"><label for="project-link">Tautan Proyek</label><input type="text" id="project-link" placeholder="Link Proyek/GitHub" required></div>
+                                <button type="submit" class="btn">Simpan Proyek</button>
+                                <button type="button" id="clear-project-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Proyek</h4><ul id="project-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+
+                <section id="organization-section" class="admin-panel">
+                    <h3>Manajemen Organisasi</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Organisasi</h4>
+                            <form id="organization-form" class="admin-form">
+                                <input type="hidden" id="organization-id">
+                                <div class="form-group"><label for="organization-title">Nama Organisasi</label><input type="text" id="organization-title" required></div>
+                                <div class="form-group"><label for="organization-subtitle">Posisi/Peran</label><input type="text" id="organization-subtitle" required></div>
+                                <div class="form-group"><label for="organization-period">Periode</label><input type="text" id="organization-period" required></div>
+                                <button type="submit" class="btn">Simpan Organisasi</button>
+                                <button type="button" id="clear-organization-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Organisasi</h4><ul id="organization-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+
+                <section id="activity-section" class="admin-panel">
+                    <h3>Manajemen Aktivitas</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Aktivitas</h4>
+                            <form id="activity-form" class="admin-form">
+                                <input type="hidden" id="activity-id">
+                                <div class="form-group"><label for="activity-title">Nama Aktivitas/Event</label><input type="text" id="activity-title" required></div>
+                                <div class="form-group"><label for="activity-subtitle">Peran Anda</label><input type="text" id="activity-subtitle" required></div>
+                                <div class="form-group"><label for="activity-period">Tanggal</label><input type="text" id="activity-period" required></div>
+                                <button type="submit" class="btn">Simpan Aktivitas</button>
+                                <button type="button" id="clear-activity-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Aktivitas</h4><ul id="activity-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+                
+                <section id="articles-section" class="admin-panel">
+                    <h3>Manajemen Artikel</h3>
+                    <div class="crud-container">
+                        <div class="crud-form-wrapper">
+                            <h4>Tambah / Edit Artikel</h4>
+                            <form id="article-form" class="admin-form">
+                                <input type="hidden" id="article-id"><input type="hidden" id="article-image-base64">
+                                <div class="form-group"><label for="article-title">Judul Artikel</label><input type="text" id="article-title" placeholder="Judul Artikel" required></div>
+                                <div class="form-group"><label for="article-description">Ringkasan Artikel</label><textarea id="article-description" rows="4" placeholder="Ringkasan atau deskripsi singkat" required></textarea></div>
+                                <div class="form-group">
+                                    <label for="article-image-upload">Upload Gambar Artikel</label><input type="file" id="article-image-upload" accept="image/*">
+                                    <div class="image-preview-container"><img id="article-preview" src="https://placehold.co/600x400/282828/E0E0E0?text=Pratinjau" alt="Pratinjau Gambar Artikel" class="image-preview rectangular"></div>
+                                </div>
+                                <div class="form-group"><label for="article-link">Tautan Artikel</label><input type="text" id="article-link" placeholder="Tautan ke artikel lengkap" required></div>
+                                <button type="submit" class="btn">Simpan Artikel</button>
+                                <button type="button" id="clear-article-form" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                        <div class="crud-list-wrapper"><h4>Daftar Artikel</h4><ul id="article-list" class="crud-list"></ul></div>
+                    </div>
+                </section>
+
+                <section id="contact-section" class="admin-panel">
+                    <h3>Edit Informasi Kontak</h3>
+                    <form id="contact-form-admin" class="admin-form">
+                        <h4>Tautan Sosial Media</h4>
+                        <div class="form-group"><label for="contact-email">Email (mailto:)</label><input type="text" id="contact-email" placeholder="mailto:email@anda.com"></div>
+                        <div class="form-group"><label for="contact-linkedin">URL LinkedIn</label><input type="text" id="contact-linkedin" placeholder="https://linkedin.com/in/username"></div>
+                        <div class="form-group"><label for="contact-github">URL GitHub</label><input type="text" id="contact-github" placeholder="https://github.com/username"></div>
+                        <div class="form-group"><label for="contact-whatsapp">Tautan WhatsApp</label><input type="text" id="contact-whatsapp" placeholder="https://wa.me/628xxxxxxxxxx"></div>
+                        
+                        <h4 style="margin-top: 30px;">Value Card</h4>
+                        <div class="form-group"><label for="contact-value-title">Judul Value Card</label><input type="text" id="contact-value-title" placeholder="cth: Nilai per Bulan"></div>
+                        <div class="form-group"><label for="contact-value-amount">Jumlah</label><input type="text" id="contact-value-amount" placeholder="cth: Rp 12.000.000,-"></div>
+                        <div class="form-group"><label for="contact-value-subtext">Teks Tambahan</label><input type="text" id="contact-value-subtext" placeholder="cth: *Rata-rata harga layanan..."></div>
+
+                        <h4 style="margin-top: 30px;">Teks Ajakan</h4>
+                        <div class="form-group"><label for="contact-discussion-prompt">Teks Ajakan Diskusi</label><textarea id="contact-discussion-prompt" rows="3" placeholder="Tulis teks ajakan untuk diskusi..."></textarea></div>
+
+                        <button type="submit" class="btn">Simpan Informasi Kontak</button>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
