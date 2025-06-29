@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
 
             // Ganti URL dengan URL backend Anda setelah di-hosting di Langkah 5
-            const API_LOGIN_URL = 'https://portofolio-backend-ten.vercel.app/';
+            const API_LOGIN_URL = 'https://portofolio-backend-ten.vercel.app';
 
             fetch(API_LOGIN_URL, {
                 method: 'POST',
