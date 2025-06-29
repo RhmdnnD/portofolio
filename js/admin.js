@@ -203,6 +203,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactFormAdmin) {
         contactFormAdmin.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            if (!portfolioData.contact) portfolioData.contact = {};
+            
             portfolioData.contact.email = document.getElementById('contact-email').value;
             portfolioData.contact.linkedin = document.getElementById('contact-linkedin').value;
             portfolioData.contact.github = document.getElementById('contact-github').value;
