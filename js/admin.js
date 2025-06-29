@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const loadData = () => {
         // Ganti URL ini jika nama backend Anda berbeda
-        const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
+        const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app';
     
         fetch(API_PORTFOLIO_URL)
             .then(res => res.json())
