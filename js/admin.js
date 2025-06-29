@@ -72,24 +72,38 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     };
 
+    const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/';
+
     const loadData = () => {
-        const data = localStorage.getItem('portfolioData');
-        portfolioData = data ? JSON.parse(data) : initializeDefaultData();
-        if (!portfolioData.home) portfolioData.home = initializeDefaultData().home;
-        if (!portfolioData.about) portfolioData.about = initializeDefaultData().about;
-        if (!portfolioData.skills) portfolioData.skills = [];
-        if (!portfolioData.education) portfolioData.education = [];
-        if (!portfolioData.experience) portfolioData.experience = [];
-        if (!portfolioData.projects) portfolioData.projects = [];
-        if (!portfolioData.organization) portfolioData.organization = [];
-        if (!portfolioData.activity) portfolioData.activity = [];
-        if (!portfolioData.articles) portfolioData.articles = [];
-        if (!portfolioData.contact) portfolioData.contact = initializeDefaultData().contact;
-        saveData(); 
+        fetch(API_PORTFOLIO_URL)
+            .then(res => res.json())
+            .then(data => {
+                portfolioData = data || initializeDefaultData();
+                renderAllSections();
+            })
+            .catch(error => {
+                console.error('Gagal memuat data dari server:', error);
+                portfolioData = initializeDefaultData(); // Gunakan data default jika gagal
+                renderAllSections();
+            });
     };
     
     const saveData = () => {
-        localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+        fetch(API_PORTFOLIO_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(portfolioData),
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log('Data berhasil disimpan ke server.');
+        })
+        .catch(error => {
+            console.error('Gagal menyimpan data ke server:', error);
+            alert('Terjadi kesalahan saat menyimpan data.');
+        });
     };
 
     const navItems = document.querySelectorAll('.admin-nav-item');
