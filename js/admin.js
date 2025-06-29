@@ -10,6 +10,32 @@ document.addEventListener('DOMContentLoaded', function() {
     let portfolioData = {};
     const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
 
+
+    const navItems = document.querySelectorAll('.admin-nav-item');
+    const panels = document.querySelectorAll('.admin-panel');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // Hanya jalankan jika link adalah anchor (#)
+            if(this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+    
+                // 1. Hapus kelas 'active' dari semua menu dan panel
+                navItems.forEach(i => i.classList.remove('active'));
+                panels.forEach(p => p.classList.remove('active'));
+    
+                // 2. Tambahkan kelas 'active' ke menu yang diklik
+                this.classList.add('active');
+    
+                // 3. Tampilkan panel yang sesuai dengan menu yang diklik
+                const targetPanel = document.querySelector(this.getAttribute('href'));
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
+            }
+        });
+    });
+
     // 3. Struktur Data Default untuk Mencegah Error
     const initializeDefaultData = () => {
         return {
