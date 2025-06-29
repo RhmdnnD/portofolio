@@ -73,17 +73,27 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
-
+    
     const loadData = () => {
+        // Ganti URL ini jika nama backend Anda berbeda
+        const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
+    
         fetch(API_PORTFOLIO_URL)
             .then(res => res.json())
-            .then(data => {
-                portfolioData = data || initializeDefaultData();
+            .then(serverData => {
+                const defaultData = initializeDefaultData();
+    
+                // Ini adalah bagian penting:
+                // Kita gabungkan data default dengan data dari server.
+                // Ini memastikan semua bagian (home, contact, skills) selalu ada.
+                portfolioData = { ...defaultData, ...serverData };
+    
                 renderAllSections();
             })
             .catch(error => {
                 console.error('Gagal memuat data dari server:', error);
-                portfolioData = initializeDefaultData(); // Gunakan data default jika gagal
+                // Jika gagal total, gunakan data default sepenuhnya.
+                portfolioData = initializeDefaultData();
                 renderAllSections();
             });
     };
