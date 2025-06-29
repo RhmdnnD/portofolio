@@ -23,19 +23,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            errorMessage.textContent = ''; // Kosongkan pesan error
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            const adminUser = 'admin';
-            const adminPass = 'password123';
+            // Ganti URL dengan URL backend Anda setelah di-hosting di Langkah 5
+            const API_LOGIN_URL = 'https://URL-BACKEND-ANDA/api/login';
 
-            if (username === adminUser && password === adminPass) {
-                localStorage.setItem('isAdmin', 'true');
-                window.location.href = 'index.html';
-            } else {
-                errorMessage.textContent = 'Username atau password salah.';
-            }
+            fetch(API_LOGIN_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Username atau password salah');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('isAdmin', 'true');
+                    window.location.href = 'admin.html'; // Arahkan ke admin.html setelah berhasil
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = error.message;
+            });
         });
     }
 });
