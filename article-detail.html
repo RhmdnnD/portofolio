@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Artikel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .article-detail-container {
+            max-width: 800px;
+            margin: 120px auto 60px auto;
+            padding: 40px;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .article-detail-header img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .article-detail-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .article-detail-content .meta {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        .article-detail-body {
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        .article-detail-body p {
+            margin-bottom: 20px;
+        }
+         .back-to-home {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <main>
+        <article class="article-detail-container">
+            <div id="article-content-wrapper">
+                <p>Memuat artikel...</p>
+            </div>
+             <a href="index.html" class="back-to-home"><i class="fas fa-arrow-left"></i> Kembali ke Halaman Utama</a>
+        </article>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/article-detail.js"></script>
+</body>
+</html>
