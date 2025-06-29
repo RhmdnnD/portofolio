@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     };
 
-    const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/';
+    const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
 
     const loadData = () => {
         fetch(API_PORTFOLIO_URL)
