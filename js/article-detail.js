@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>Diterbitkan pada: ${new Date(article.id).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                     </div>
                     <div class="article-detail-body">
-                        ${article.body}
+                        ${article.body || '<p><i>Isi artikel ini belum tersedia. Silakan edit melalui halaman admin.</i></p>'}
                     </div>
                 </div>
             `;
