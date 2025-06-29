@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(article => {
             // Mengubah judul halaman
             document.title = article.title;
+            const formattedBody = '<p>' + article.body.replace(/\n/g, '</p><p>') + '</p>';
 
-            // Menampilkan konten artikel di halaman
             contentWrapper.innerHTML = `
                 <div class="article-detail-header">
                     <img src="${article.image}" alt="${article.title}">
