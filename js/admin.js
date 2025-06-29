@@ -1,57 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 1. Pemeriksaan Login
     if (localStorage.getItem('isAdmin') !== 'true') {
         alert('Akses ditolak. Silakan login sebagai admin.');
         window.location.href = 'login.html';
         return;
     }
 
+    // 2. Variabel Global dan URL Backend yang Benar
     let portfolioData = {};
+    const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
 
-    const adminMenuToggle = document.getElementById('admin-menu-toggle');
-    const adminSidebar = document.getElementById('admin-sidebar');
-    const adminHeaderTitle = document.querySelector('.admin-header-title');
-
-    if (adminMenuToggle && adminSidebar) {
-        adminMenuToggle.addEventListener('click', () => {
-            adminSidebar.classList.toggle('active');
-            adminMenuToggle.classList.toggle('open');
-        });
-
-        // Tutup sidebar jika user mengklik di luar area sidebar
-        document.addEventListener('click', function(event) {
-            const isClickInsideSidebar = adminSidebar.contains(event.target);
-            const isClickOnToggle = adminMenuToggle.contains(event.target);
-            if (!isClickInsideSidebar && !isClickOnToggle && adminSidebar.classList.contains('active')) {
-                adminSidebar.classList.remove('active');
-                adminMenuToggle.classList.remove('open');
-            }
-        });
-    }
-
-    // Perbarui judul header saat panel diganti
-    const adminNavItems = document.querySelectorAll('.admin-nav-item');
-    adminNavItems.forEach(item => {
-        item.addEventListener('click', function() {
-            if (adminHeaderTitle && !this.classList.contains('back-link')) {
-                adminHeaderTitle.textContent = this.textContent;
-            }
-            // Tutup sidebar setelah item menu diklik di mobile
-            if (window.innerWidth <= 992) {
-                adminSidebar.classList.remove('active');
-                adminMenuToggle.classList.remove('open');
-            }
-        });
-    });
-
+    // 3. Struktur Data Default untuk Mencegah Error
     const initializeDefaultData = () => {
         return {
-            home: {
-                title: "Halo, saya",
-                name: "Rahmad Ananda",
-                subtitle: "Web Developer | UI/UX Designer",
-                profilePicture: "img/profil.png"
-            },
-            about: "Perkenalkan, saya Rahmad Ananda, seorang mahasiswa Teknik Informatika di Universitas Maritim Raja Ali Haji dengan minat yang mendalam pada pengembangan web dan desain UI/UX. Saya bersemangat dalam menciptakan situs web yang tidak hanya fungsional tetapi juga memberikan pengalaman pengguna yang intuitif dan menarik. Saya senang mengubah ide-ide kompleks menjadi desain yang sederhana dan elegan, serta selalu antusias untuk mempelajari teknologi baru.",
+            home: {},
+            about: "",
             skills: [],
             education: [],
             experience: [],
@@ -59,45 +22,29 @@ document.addEventListener('DOMContentLoaded', function() {
             organization: [],
             activity: [],
             articles: [],
-            contact: {
-                email: "mailto:rahmadananda15@gmail.com",
-                linkedin: "https://linkedin.com/in/rahmad-ananda-039b13282",
-                github: "https://github.com/namaanda",
-                whatsapp: "https://wa.me/6282276506041",
-                valueTitle: "Nilai per Bulan",
-                valueAmount: "Rp 12.000.000,-",
-                valueSubtext: "*Rata-rata harga layanan/bisnis bulanan",
-                discussionPrompt: "Ingin berdiskusi lebih lanjut? Silakan kirim pesan menggunakan formulir di bawah ini."
-            }
+            contact: {}
         };
     };
 
-    const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
-    
+    // 4. FUNGSI BARU UNTUK MEMUAT DATA DARI SERVER
     const loadData = () => {
-        // Ganti URL ini jika nama backend Anda berbeda
-        const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app';
-    
         fetch(API_PORTFOLIO_URL)
             .then(res => res.json())
             .then(serverData => {
                 const defaultData = initializeDefaultData();
-    
-                // Ini adalah bagian penting:
-                // Kita gabungkan data default dengan data dari server.
-                // Ini memastikan semua bagian (home, contact, skills) selalu ada.
+                // Menggabungkan data dari server dengan struktur default
+                // Ini mencegah error "cannot set properties of undefined"
                 portfolioData = { ...defaultData, ...serverData };
-    
                 renderAllSections();
             })
             .catch(error => {
                 console.error('Gagal memuat data dari server:', error);
-                // Jika gagal total, gunakan data default sepenuhnya.
                 portfolioData = initializeDefaultData();
                 renderAllSections();
             });
     };
-    
+
+    // 5. FUNGSI BARU UNTUK MENYIMPAN DATA KE SERVER
     const saveData = () => {
         fetch(API_PORTFOLIO_URL, {
             method: 'POST',
@@ -112,25 +59,36 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Gagal menyimpan data ke server:', error);
-            alert('Terjadi kesalahan saat menyimpan data.');
+            alert('Terjadi kesalahan saat menyimpan data ke server.');
         });
     };
 
-    const navItems = document.querySelectorAll('.admin-nav-item');
-    const panels = document.querySelectorAll('.admin-panel');
+    // --- SISA KODE (SEMUA EVENT LISTENER FORM) TETAP SAMA ---
+    // Pastikan semua listener form Anda (home, about, contact, dll.)
+    // memanggil saveData() setelah mengubah portfolioData.
 
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            if(this.getAttribute('href').startsWith('#')) {
-                e.preventDefault();
-                navItems.forEach(i => i.classList.remove('active'));
-                panels.forEach(p => p.classList.remove('active'));
-                
-                this.classList.add('active');
-                document.querySelector(this.getAttribute('href')).classList.add('active');
+    // Contoh untuk form Home (pastikan blok kode Anda seperti ini)
+    const homeForm = document.getElementById('home-form');
+    if (homeForm) {
+        homeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!portfolioData.home) portfolioData.home = {}; // Pencegahan error
+            portfolioData.home.title = document.getElementById('hero-title').value;
+            portfolioData.home.name = document.getElementById('hero-name').value;
+            portfolioData.home.subtitle = document.getElementById('hero-subtitle').value;
+            const profilePreviewSrc = document.getElementById('profile-preview').src;
+            if (profilePreviewSrc.startsWith('data:image')) {
+                portfolioData.home.profilePicture = profilePreviewSrc;
             }
+            saveData(); // Memanggil fungsi penyimpanan yang benar
+            alert('Data Halaman Utama berhasil diperbarui!');
         });
-    });
+    }
+
+    // (Kode lainnya seperti renderHome, setupCrud, dll., biarkan seperti adanya)
+    // Kode di bawah ini mengasumsikan sisa file Anda sudah benar.
+    // Jika Anda menempel seluruh kode dari awal hingga akhir,
+    // pastikan semua fungsi render dan setupCrud ada di dalamnya.
 
     const renderHome = () => {
         const homeForm = document.getElementById('home-form');
@@ -139,14 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const heroNameInput = document.getElementById('hero-name');
         const heroSubtitleInput = document.getElementById('hero-subtitle');
         const profilePreview = document.getElementById('profile-preview');
-        
-        const homeData = portfolioData.home;
-        if(homeData){
-            heroTitleInput.value = homeData.title || '';
-            heroNameInput.value = homeData.name || '';
-            heroSubtitleInput.value = homeData.subtitle || '';
-            profilePreview.src = homeData.profilePicture || 'img/profil.png';
-        }
+        const homeData = portfolioData.home || {};
+        heroTitleInput.value = homeData.title || '';
+        heroNameInput.value = homeData.name || '';
+        heroSubtitleInput.value = homeData.subtitle || '';
+        profilePreview.src = homeData.profilePicture || 'img/profil.png';
     };
     
     const profileUpload = document.getElementById('profile-picture-upload');
@@ -154,36 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
         profileUpload.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profile-preview').src = e.target.result;
-                };
+                reader.onload = function(e) { document.getElementById('profile-preview').src = e.target.result; };
                 reader.readAsDataURL(this.files[0]);
             }
         });
     }
 
-    const homeForm = document.getElementById('home-form');
-    if (homeForm) {
-        homeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            portfolioData.home.title = document.getElementById('hero-title').value;
-            portfolioData.home.name = document.getElementById('hero-name').value;
-            portfolioData.home.subtitle = document.getElementById('hero-subtitle').value;
-            const profilePreviewSrc = document.getElementById('profile-preview').src;
-            if (profilePreviewSrc.startsWith('data:image')) {
-                portfolioData.home.profilePicture = profilePreviewSrc;
-            }
-            saveData();
-            alert('Data Halaman Utama berhasil diperbarui!');
-        });
-    }
-
-    const renderAbout = () => {
-        const aboutText = document.getElementById('about-text');
-        if(aboutText) {
-            aboutText.value = portfolioData.about || '';
-        }
-    };
     const aboutForm = document.getElementById('about-form');
     if (aboutForm) {
         aboutForm.addEventListener('submit', (e) => {
@@ -193,29 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Deskripsi "Tentang Saya" berhasil diperbarui!');
         });
     }
-
-    const renderContact = () => {
-        const contactFormAdmin = document.getElementById('contact-form-admin');
-        if (!contactFormAdmin) return;
-        const contactData = portfolioData.contact;
-        if (contactData) {
-            document.getElementById('contact-email').value = contactData.email || '';
-            document.getElementById('contact-linkedin').value = contactData.linkedin || '';
-            document.getElementById('contact-github').value = contactData.github || '';
-            document.getElementById('contact-whatsapp').value = contactData.whatsapp || '';
-            document.getElementById('contact-value-title').value = contactData.valueTitle || '';
-            document.getElementById('contact-value-amount').value = contactData.valueAmount || '';
-            document.getElementById('contact-value-subtext').value = contactData.valueSubtext || '';
-            document.getElementById('contact-discussion-prompt').value = contactData.discussionPrompt || '';
-        }
-    };
+    
     const contactFormAdmin = document.getElementById('contact-form-admin');
     if (contactFormAdmin) {
         contactFormAdmin.addEventListener('submit', (e) => {
             e.preventDefault();
-
             if (!portfolioData.contact) portfolioData.contact = {};
-            
             portfolioData.contact.email = document.getElementById('contact-email').value;
             portfolioData.contact.linkedin = document.getElementById('contact-linkedin').value;
             portfolioData.contact.github = document.getElementById('contact-github').value;
@@ -229,6 +143,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const renderAbout = () => {
+        const aboutText = document.getElementById('about-text');
+        if(aboutText) { aboutText.value = portfolioData.about || ''; }
+    };
+
+    const renderContact = () => {
+        const contactFormAdmin = document.getElementById('contact-form-admin');
+        if (!contactFormAdmin) return;
+        const contactData = portfolioData.contact || {};
+        document.getElementById('contact-email').value = contactData.email || '';
+        document.getElementById('contact-linkedin').value = contactData.linkedin || '';
+        document.getElementById('contact-github').value = contactData.github || '';
+        document.getElementById('contact-whatsapp').value = contactData.whatsapp || '';
+        document.getElementById('contact-value-title').value = contactData.valueTitle || '';
+        document.getElementById('contact-value-amount').value = contactData.valueAmount || '';
+        document.getElementById('contact-value-subtext').value = contactData.valueSubtext || '';
+        document.getElementById('contact-discussion-prompt').value = contactData.discussionPrompt || '';
+    };
+
+    // Fungsi setupCrud Anda (biarkan seperti adanya)
     const setupCrud = (sectionName, idPrefix) => {
         const form = document.getElementById(`${idPrefix}-form`);
         if (!form) return () => {}; 
@@ -340,10 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
             clearForm();
         });
         
-        if(clearBtn) {
-            clearBtn.addEventListener('click', clearForm);
-        }
-
+        if(clearBtn) { clearBtn.addEventListener('click', clearForm); }
         return renderList;
     };
     
@@ -354,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const renderOrganization = setupCrud('organization', 'organization');
     const renderActivity = setupCrud('activity', 'activity');
     const renderArticles = setupCrud('articles', 'article'); 
-
 
     const renderAllSections = () => {
         renderHome();
@@ -370,5 +300,4 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     loadData();
-    renderAllSections();
 });
