@@ -43,17 +43,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- Pemuatan dan Render Data Dinamis ---
+    const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/';
+
     let portfolioData = {};
 
     function loadDynamicData() {
-        const data = localStorage.getItem('portfolioData');
-        if (data) {
-            portfolioData = JSON.parse(data);
-            renderDynamicContent();
-        } else {
-            console.log("Tidak ada data portofolio di localStorage. Silakan login sebagai admin untuk menambahkan data.");
-        }
+        fetch(API_PORTFOLIO_URL)
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    portfolioData = data;
+                    renderDynamicContent();
+                }
+            })
+            .catch(error => console.error("Gagal mengambil data portofolio:", error));
     }
 
     function renderDynamicContent() {
