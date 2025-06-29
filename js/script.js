@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${article.image || 'https://placehold.co/600x400/333/E0E0E0?text=Artikel'}" alt="${article.title}" class="article-image">
                     <h3>${article.title}</h3>
                     <p>${article.description}</p>
-                    <a href="${article.link}" target="_blank">Baca Selengkapnya</a>
+                    <a href="article-detail.html?id=${article.id}" class="btn">Baca Selengkapnya</a>
                 </div>`;
                 articlesGrid.innerHTML += articleHTML;
             });
