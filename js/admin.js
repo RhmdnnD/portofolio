@@ -6,11 +6,44 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // 2. Variabel Global dan URL Backend yang Benar
     let portfolioData = {};
     const API_PORTFOLIO_URL = 'https://portofolio-backend-ten.vercel.app/api/portfolio';
 
-
+    const adminMenuToggle = document.getElementById('admin-menu-toggle');
+    const adminSidebar = document.getElementById('admin-sidebar');
+    const adminHeaderTitle = document.querySelector('.admin-header-title');
+    
+    if (adminMenuToggle && adminSidebar) {
+        adminMenuToggle.addEventListener('click', () => {
+            adminSidebar.classList.toggle('active');
+            adminMenuToggle.classList.toggle('open');
+        });
+    
+        document.addEventListener('click', function(event) {
+            const isClickInsideSidebar = adminSidebar.contains(event.target);
+            const isClickOnToggle = adminMenuToggle.contains(event.target);
+            if (!isClickInsideSidebar && !isClickOnToggle && adminSidebar.classList.contains('active')) {
+                adminSidebar.classList.remove('active');
+                adminMenuToggle.classList.remove('open');
+            }
+        });
+    }
+    
+    if (adminHeaderTitle) {
+        const navLinksForTitle = document.querySelectorAll('.admin-nav-item');
+        navLinksForTitle.forEach(item => {
+            item.addEventListener('click', function() {
+                if (!this.classList.contains('back-link')) {
+                    adminHeaderTitle.textContent = this.textContent.trim();
+                }
+                if (window.innerWidth <= 992 && adminSidebar.classList.contains('active')) {
+                    adminSidebar.classList.remove('active');
+                    adminMenuToggle.classList.remove('open');
+                }
+            });
+        });
+    }
+    
     const navItems = document.querySelectorAll('.admin-nav-item');
     const panels = document.querySelectorAll('.admin-panel');
     
